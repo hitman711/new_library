@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+
+  migrate:
+    build: .
+    command: >-
+      bash -c  'source /home/siddhesh/library_env/bin/activate && python
+      manage.py migrate --noinput'
+    volumes:
+      - './:/home/siddhesh/library'
+    
+  web:
+    build: .
+    command: >-
+      bash -c  'source /home/siddhesh/library_env/bin/activate && python
+      manage.py runserver 0.0.0.0:8000'
+    volumes:
+      - .:/home/siddhesh/library
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - migrate

@@ -7,23 +7,38 @@ from django.contrib.postgres.fields import JSONField
 
 
 def slugify(value):
-    value = unicodedata.normalize('NFKC', value).strip().lower()
-    return re.sub(r'[-\s]+', '-', value)
-
+    """ Slugify book title"""
+    if value:
+        value = unicodedata.normalize('NFKC', value).strip().lower()
+        return re.sub(r'[-\s]+', '-', value)
+    return value
 
 class Book(models.Model):
     """ Model to store Books information"""
-    title = models.CharField(max_length=500)
+    title = models.CharField(
+        max_length=500, help_text="Book title")
     slug_name = models.SlugField(
         max_length=100,
         editable=False, blank=True, unique=True,
         help_text="Unique slug name slug name")
-    publisher = models.CharField(max_length=300)
-    author = models.CharField(max_length=255)
-    pages = models.PositiveIntegerField(default=0)
-    tags = JSONField(null=False, blank=True, default=[])
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    publisher = models.CharField(
+        max_length=300,
+        help_text="Book publisher name")
+    author = models.CharField(
+        max_length=255,
+        help_text="Book author name")
+    pages = models.PositiveIntegerField(
+        default=0,
+        help_text="Total no. of pages in book")
+    tags = JSONField(
+        null=False, blank=True, default=[],
+        help_text="List of tags")
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        help_text="Book object creation date")
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        help_text="Book object updation date")
 
     class Meta:
         app_label = 'books'
@@ -38,5 +53,3 @@ class Book(models.Model):
         self.slug_name = slugify(self.title)
         super(Book, self).save(*args, **kwargs)
 
-    def tag_list(self):
-        return []

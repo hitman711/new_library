@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'library',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '192.168.1.240',
+        'HOST': '192.168.1.101',
         'PORT': 5432,
     }
 }
@@ -152,4 +152,16 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+}
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'Token'
+        }
+    }
+}
+
+REDOC_SETTINGS = {
+   'LAZY_RENDERING': True
 }
