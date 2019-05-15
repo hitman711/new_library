@@ -16,6 +16,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             instance = super(
                 RegistrationSerializer, self).create(validated_data)
             instance.set_password(validated_data['password'])
+            instance.is_staff = True
             instance.save()
             return instance
         except Exception as e:

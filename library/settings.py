@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'library',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '192.168.1.101',
+        'HOST': '192.168.1.240',
         'PORT': 5432,
     }
 }
@@ -142,6 +142,8 @@ STATIC_URL = '/static/'
 """
 Django Rest Framework
 """
+LOGIN_URL = '/admin/login/'
+LOGOUT_URL = '/admin/logout/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -163,5 +165,5 @@ SWAGGER_SETTINGS = {
 }
 
 REDOC_SETTINGS = {
-   'LAZY_RENDERING': True
+    'LAZY_RENDERING': True
 }
